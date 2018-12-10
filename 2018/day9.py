@@ -9,9 +9,8 @@ from collections import defaultdict
 import pandas as pd
 import re
 import time
-players = 10
 
-#
+
 with open('day_9.txt') as file:
     data = next(file)
     r = re.findall('(.*?) players; last marble is worth(.*?) points', data)
