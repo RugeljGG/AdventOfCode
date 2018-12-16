@@ -1,13 +1,15 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css">
 <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-
-
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.colVis.min.js"></script>
 <table id="results" class="display compact cell-border" style="width:100%">
 </table>
 
 
 <script>
+// https://jsfiddle.net/ivan_sim/xshh5np8/
 jQuery.extend( jQuery.fn.dataTableExt.oSort, {
     "non-empty-string-asc": function (str1, str2) {
         if(str1 == "")
@@ -32,6 +34,7 @@ $(document).ready( function () {
 	var my_columns = [];
 	var columns;
 	var dataSet;
+	var visible = ['Name', 'Score'];
 	$.ajaxSetup({
     async: false
 	});
@@ -47,22 +50,30 @@ $(document).ready( function () {
 			my_item.data = key;
 			my_item.title = key;
 			//if (key = 'Score'){my_item.type;}
+			if (i<columns.length-14 && !(visible.includes(key))){my_item.visible = false} // only show last 7*2 columns
 			my_item.type = 'non-empty-string'
 			my_columns.push(my_item);
 	});
     $('#results').DataTable({
 		data: dataSet,
+		dom: 'Bfrtip',
 		"pageLength": 50,
 		"order": [[ 2, "desc" ]],
 		"columns": my_columns,
 		"columnDefs": [
 			{
-				"targets": [0],
-				"visible": false
+				"targets": [1, 2],
+				"visible": true
 			}
 			],
 		"paging": false,
-		"info": false
+		"info": false,
+		buttons: [
+			{
+				extend: 'colvis',
+				columns: ':not(.noVis)'
+			}
+			]
 	});
 } );
 
