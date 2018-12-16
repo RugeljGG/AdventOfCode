@@ -111,11 +111,14 @@ class Unit():
         return '{}: {} hp ({},{})'.format(self.team, self.hp, self.x, self.y)
 
 
-def show_zone(zone):
+def show_zone(zone, file=None):
+    if file is None:
+        import sys
+        file = sys.stdout
     for row in zone:
         s = ''.join(c if isinstance(c, str) else c.team for c in row)
         adder = ''.join(c.__repr__() for c in row if isinstance(c, Unit))
-        print(s + '    ' + adder)
+        print(s + '    ' + adder, file=file)
 
 class Data():
     def __init__(self, alive, zone, elves, goblins, units):
@@ -133,7 +136,7 @@ def task1():
     goblins = []
     units = []
     data = Data(alive, zone, elves, goblins, units)
-    with open('day15.txt') as file:
+    with open('day15_t.txt') as file:
         for y, row in enumerate(file):
             data.zone.append([])
             for x, c in enumerate(row.strip()):
@@ -143,9 +146,10 @@ def task1():
     
     rounds = 0
     cont = 1
+    file = open('matic.txt', 'w')
     while cont:
-#        print(rounds)
-    #    show_zone(data.zone)
+        print(rounds, file=file)
+        show_zone(data.zone, file=file)
         data.units.sort()
         cont = 0
         for unit in data.units:
@@ -159,10 +163,10 @@ def task1():
         if not cont:
             break
         rounds += 1
-    #    s = input()
-    #    if s == 'b':
-    #        break
-        
+#        s = input()
+#        if s == 'b':
+#            break
+    file.close()
     total_hp = sum(unit.hp for unit in data.units if unit.alive)
     return (total_hp, rounds, rounds* total_hp)
 
