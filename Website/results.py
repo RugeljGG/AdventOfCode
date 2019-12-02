@@ -11,15 +11,16 @@ import pandas as pd
 import requests
 
 with open('cookie') as file:
-    t = json.load(file)
-url = 'https://adventofcode.com/2018/leaderboard/private/view/118799.json'
+    cookie = json.load(file)
+url = 'https://adventofcode.com/{year}/leaderboard/private/view/118799.json'
 
-def get_results(convert_ts=False):
+def get_results(convert_ts=False, year=2019):
 
 
-    r = requests.get(url, cookies=cookie)
-
-    max_level = min((pd.to_datetime('today')-pd.to_datetime('2018-11-30')).days, 25)
+    r = requests.get(url.format(year=year), cookies=cookie)
+    e = pd.to_datetime('today')
+    s = pd.to_datetime('{}-11-30'.format(year))
+    max_level = min((e-s).days, 25)
     results = r.json()
     total = []
     for result in results['members'].values():
