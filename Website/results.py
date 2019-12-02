@@ -11,7 +11,7 @@ import pandas as pd
 import requests
 
 with open('cookie') as file:
-    t = json.load(file)
+    cookie = json.load(file)
 url = 'https://adventofcode.com/2018/leaderboard/private/view/118799.json'
 
 def get_results(convert_ts=False):
