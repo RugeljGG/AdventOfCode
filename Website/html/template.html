@@ -5,6 +5,8 @@
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.colVis.min.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/fixedcolumns/3.2.6/js/dataTables.fixedColumns.min.js"></script>
+<a href=/2017>2017</a> <a href=/2018>2018</a> <a href=/2019>2019</a>
+<p></p>
 <table id="results" class="display compact nowrap cell-border" style="width:100%">
 </table>
 
@@ -39,7 +41,7 @@ $(document).ready( function () {
 	$.ajaxSetup({
     async: false
 	});
-	$.getJSON('/get_results', function(data){dataSet=data['data'], columns=data['columns'] ;});
+	$.getJSON('/get_results/{{year}}', function(data){dataSet=data['data'], columns=data['columns'] ;});
 	/*$.each( dataSet[0], function( key, value ) {
 			var my_item = {};
 			my_item.data = key;
