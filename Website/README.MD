@@ -1,0 +1,8 @@
+Simple website for viewing private leaderboard. 
+
+To use it, create a file named **cookie** with JSON containing session ID (eg: _{"session":"0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"}_)
+
+To find your session ID : 
+1. Go to Advent of Code website and log in
+2. Open developer console window (Ctrl + Shift + J)
+3. Go to Application tab, view cookies
