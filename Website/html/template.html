@@ -5,7 +5,16 @@
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.colVis.min.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/fixedcolumns/3.2.6/js/dataTables.fixedColumns.min.js"></script>
-<a href=/2017>2017</a> <a href=/2018>2018</a> <a href=/2019>2019</a>
+<div id="header", style="width:100%">
+    <div id="refresh", style="width:50%; float: left;">
+        Last refresh: {{ts}}
+    </div>
+    <div id="links", style="width:50%; float: left; text-align: right">
+        <a href="/2017">2017</a> 
+        <a href="/2018">2018</a> 
+        <a href="/2019">2019</a>
+    </div>
+</div>
 <p></p>
 <table id="results" class="display compact nowrap cell-border" style="width:100%">
 </table>
@@ -35,13 +44,15 @@ jQuery.extend( jQuery.fn.dataTableExt.oSort, {
 $(document).ready( function () {
 	// https://stackoverflow.com/questions/39644079/how-to-display-the-column-headers-dynamically-in-jquery-data-table
 	var my_columns = [];
+	var t_columns = [];
 	var columns;
 	var dataSet;
+	var last_refresh;
 	var visible = ['Name', 'Score'];
 	$.ajaxSetup({
     async: false
 	});
-	$.getJSON('/get_results/{{year}}', function(data){dataSet=data['data'], columns=data['columns'] ;});
+	$.getJSON('/get_results/{{year}}', function(data){dataSet=data['data'], columns=data['columns'], last_refresh=data['ts'] ;});
 	/*$.each( dataSet[0], function( key, value ) {
 			var my_item = {};
 			my_item.data = key;
@@ -53,28 +64,47 @@ $(document).ready( function () {
 			my_item.data = key;
 			my_item.title = key;
 			if (key == 'ID'){my_item.visible= false}
-			//if (i<columns.length-14 && !(visible.includes(key))){my_item.visible = false} // only show last 7*2 columns. 
+			if (i<columns.length-14 && !(visible.includes(key))){my_item.visible = false} // only show last 7*2 columns. 
 			my_item.type = 'non-empty-string'
+			if (i>3){t_columns.push(i)};
 			my_columns.push(my_item);
 	});
+	document.getElementById("refresh").innerHTML = "Last refresh: " + last_refresh;
     $('#results').DataTable({
-		data: dataSet,
-		dom: 'Bfrtip',
-		scrollX: true,
+		"data": dataSet,
+		"dom": 'Bfrtip',
+		"scrollX": true,
 		"pageLength": 50,
 		"order": [[ 2, "desc" ]],
 		"columns": my_columns,
 		"paging": false,
 		"info": false,
-		buttons: [
+		"buttons": [
 			{
 				extend: 'colvis',
 				columns: ':not(.noVis)'
 			}
 			],
-		 fixedColumns: {
+		"fixedColumns": {
 			leftColumns: 3,
-        }
+			},
+		"columnDefs": [{targets: t_columns,
+                    render: function ( data, type, row ) {
+                      var color = 'black';
+					  if (typeof data === 'string'){
+						var a1 = data.split(' ')
+						if (a1.length>1){
+							var a2 = a1[1].split(':')
+							var hour = Number(a2[a2.length-3]);
+							var day = a1[0].split('.')[0]
+							console.log(hour);
+							if (hour >= 9 && hour <16 && day % 7 > 1 ) {
+								color = 'red'}
+							}
+						}
+                      return '<span style="color:' + color + '">' + data + '</span>';
+                    }
+               }]
 	});
 } );
 

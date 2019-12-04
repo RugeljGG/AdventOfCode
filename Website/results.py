@@ -16,8 +16,10 @@ url = 'https://adventofcode.com/{year}/leaderboard/private/view/118799.json'
 
 def get_results(convert_ts=False, year=2019):
 
-
-    r = requests.get(url.format(year=year), cookies=cookie)
+    try:
+        r = requests.get(url.format(year=year), cookies=cookie, timeout=5)
+    except:
+        return None
     e = pd.to_datetime('today')
     s = pd.to_datetime('{}-11-30'.format(year))
     max_level = min((e-s).days, 25)
