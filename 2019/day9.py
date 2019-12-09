@@ -11,7 +11,7 @@ with open('day9.txt') as file:
     raw_data = next(file).strip().split(',')
 
 #raw_data = '109,1,204,-1,1001,100,1,100,1008,100,16,101,1006,101,0,99'.split(',')
-def task1(input_=1):    
+def program(input_=1):    
     data = defaultdict(lambda: 0, zip(range(len(raw_data)),(int(r) for r in raw_data)))
     i = 0
     rb = 0
@@ -76,3 +76,5 @@ def task1(input_=1):
         
     return output
     
+print('t1 result: ', program(1)[0])
+print('t2 result: ', program(2)[0])
