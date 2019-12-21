@@ -139,3 +139,7 @@ def part2():
                 mx = x
                     
     return (x-99) * 10000 + y - 99
+
+
+print("Task 1: ", part1())
+print("Task 2: ", part2())
