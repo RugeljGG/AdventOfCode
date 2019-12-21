@@ -180,7 +180,7 @@ def task1():
 
 def task2():
     lab = []
-    with open('day18.txt') as file:
+    with open('day18_2.txt') as file:
         for row in file:
             lab.append([c for c in row.strip()])
     
@@ -252,3 +252,6 @@ def task2():
             for n in to_clear:
                 n.hn.clear()
     return best
+
+print("Task 1: ", task1())
+print("Task 2: ", task2())
