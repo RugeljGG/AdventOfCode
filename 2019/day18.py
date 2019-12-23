@@ -8,7 +8,7 @@ Created on Wed Dec 18 05:59:50 2019
 from collections import defaultdict, deque
 import itertools
 
-       
+
 class Point():
     def __init__(self, x, y, c):
         self.x = x
@@ -16,7 +16,7 @@ class Point():
         self.c = c
         self.hn = defaultdict(lambda: None)
         self.neighbours = defaultdict(lambda: None)
-                      
+
     def spread(self, state, movers, points, target=26):
         x, y = self.x, self.y
         n = self.hn.pop(state)
@@ -50,8 +50,8 @@ class Point():
                 nb.hn[frozen] = n+1
                 movers.append((nb,frozen))
         return False
-        
-        
+
+
     def spread_fast(self, state, movers, heroes, steps):
 #        n = self.hn.pop(state)
         for p, dist in self.neighbours.items():
@@ -82,7 +82,7 @@ class Point():
             nb.hn[frozen] = steps+dist
             movers.append((nb,frozen, steps+dist))
 
-            
+
     def find_neighbours(self, p, n, points):
         x, y = self.x, self.y
         if self.neighbours[p] is None or self.neighbours[p] > n:
@@ -93,7 +93,7 @@ class Point():
                     nb = points[ns]
                     if nb.c != '#':
                         nb.find_neighbours(p, n+1, points)
-        
+
     def __repr__(self):
         return self.c +' ({},{})'.format(self.x, self.y)
 
@@ -102,7 +102,7 @@ def task1_slow():
     with open('day18.txt') as file:
         for row in file:
             lab.append([c for c in row.strip()])
-    
+
     points = dict()
     possible_keys = set()
     for y in range(len(lab)):
@@ -113,7 +113,7 @@ def task1_slow():
                 xs, ys = x, y
             elif p.c.islower():
                 possible_keys.add(p.c)
-    
+
     target = len(possible_keys)
     state = frozenset()
     movers = deque()
@@ -125,9 +125,9 @@ def task1_slow():
             n, state = movers.pop()
         else:
             n, state = movers.popleft()
-        
+
         if best is not None and n.hn[state] >= best:
-            continue    
+            continue
         finish = n.spread(state, movers, points, target=target)
         if finish:
             if best is None or finish < best:
@@ -141,7 +141,7 @@ def task1():
     with open('day18.txt') as file:
         for row in file:
             lab.append([c for c in row.strip()])
-    
+
     points = dict()
     heroes = dict()
     possible_keys = set()
@@ -155,11 +155,11 @@ def task1():
                 xs, ys = x, y
             elif p.c.islower():
                 possible_keys.add(p.c)
-    
+
     for hero in heroes.values():
         hero.find_neighbours(hero.c, 0, points)
         hero.neighbours.pop(hero.c)
-        
+
     target = len(possible_keys)
     state = frozenset()
     movers = deque()
@@ -183,7 +183,7 @@ def task2():
     with open('day18_2.txt') as file:
         for row in file:
             lab.append([c for c in row.strip()])
-    
+
     points = dict()
     heroes = dict()
     starters = dict()
@@ -200,8 +200,8 @@ def task2():
                heroes[p.c] = p
             if p.c.islower():
                 possible_keys.add(p.c)
-    
-    
+
+
     for hero in heroes.values():
         hero.find_neighbours(hero.c, 0, points)
         hero.neighbours.pop(hero.c)
@@ -235,7 +235,7 @@ def task2():
                     if best is None or n.hn[state] < best:
                         best = n.hn[state]
                     continue
-#                        print(best)                   
+#                        print(best)
                 old_pos[i] = n.c
                 key = state, ''.join(old_pos), i
                 if key in states and states[key] <= steps:
@@ -243,7 +243,7 @@ def task2():
                 elif len(state) > len(old_state):
                     if state not in candidates or candidates[state][1]>steps:
                         candidates[state] = key, steps
-                    
+
                 n.spread_fast(state, movers, heroes, steps)
                 to_clear.add(n)
             for key, steps in candidates.values():
