@@ -3,8 +3,6 @@
 import aoc_helper
 
 data = aoc_helper.get_input(1)
-# with open('day1.txt', 'w') as file:
-#     print(r.text, file=file)
 
 print('Day 1 input:')
 print(data)
