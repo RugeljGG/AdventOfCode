@@ -47,11 +47,13 @@ def result_page(year, *args, **kwargs):
 @app.route('/')
 @app.route('/<year>')
 def index(year='2020'):
-    if str(year) not in YEARS:
-        year = '2019'
+    year=str(year)
+    if year not in YEARS:
+        year = '2020'
+    links = '\r\n'.join(['<a href="/{y}">{y}</a>'.format(y=y) for y in YEARS if y!= year])
     name = 'AoC {}'.format(year)
     ts = cache[year]['ts']
-    return flask.render_template('template.html', name=name, year=year, ts=ts)
+    return flask.render_template('template.html', name=name, year=year, ts=ts, links=links)
 
 if __name__ == '__main__':
     lock = Lock()
