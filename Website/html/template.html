@@ -52,7 +52,7 @@ $(document).ready( function () {
 	$.ajaxSetup({
     async: false
 	});
-	$.getJSON('/get_results/{{year}}', function(data){dataSet=data['data'], columns=data['columns'], last_refresh=data['ts'] ;});
+	$.getJSON('/{{prefix}}{{year}}', function(data){dataSet=data['data'], columns=data['columns'], last_refresh=data['ts'] ;});
 	/*$.each( dataSet[0], function( key, value ) {
 			var my_item = {};
 			my_item.data = key;
