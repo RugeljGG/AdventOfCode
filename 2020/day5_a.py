@@ -1,9 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Sat Dec  5 05:54:36 2020
-
-@author: gape
-"""
 
 import aoc_helper
 
@@ -18,28 +13,8 @@ print("\n############################################################\n")
 best = 0
 ids = set()
 for row in data.split('\n')[:-1]:
-    i = 0
-    j = 127
-    for c in row[:7]:
-        if c == 'F':
-            j = (j+i)//2
-        else:
-            i = (j+i)//2+1
-        # print(c, i, j)
-    rown = j
-    
-    ir = 0
-    jr = 7
-    for c in row[-3:]:
-        if c == 'L':
-            jr = (jr+ir)//2
-        else:
-            ir = (jr+ir)//2+1
-    coln = ir
-    
-    # print(row)
-    # print(rown, i, j)
-    # print(coln, ir, jr)
+    rown = int(row[:7].replace('B', '1').replace('F','0'), 2)
+    coln = int(row[-3:].replace('R', '1').replace('L','0'), 2)
     
     sid = rown * 8 + coln
     if sid>best:
@@ -56,5 +31,3 @@ for i in range(1, best):
         else:
             print('Part 2 answer: ', i)
             break
-        
-        
