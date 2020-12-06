@@ -62,8 +62,10 @@ def duration(year, *args, **kwargs):
 @app.route('/')
 @app.route('/<year>')
 def index(year='2020', duration=False):
-    if str(year) not in YEARS:
-        year = '2019'
+    year=str(year)
+    if year not in YEARS:
+        year = '2020'
+    links = '\r\n'.join(['<a href="/{y}">{y}</a>'.format(y=y) for y in YEARS if y!= year])
     name = 'AoC {}'.format(year)
     ts = cache[duration][year]['ts']
     prefix = 'get_duration/' if duration else 'get_results/'
@@ -71,6 +73,7 @@ def index(year='2020', duration=False):
                                  name=name, 
                                  year=year, 
                                  ts=ts,
+                                 links=links,
                                  prefix=prefix)
 
 
