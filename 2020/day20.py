@@ -292,5 +292,5 @@ for xflip in (0, 1):
 
 print("Part 2 answer:", sum([''.join(row).count('#') for row in data]))
 
-for row in data:
-    print('\033[34m'+''.join(row).replace('o', '\033[31mo\033[34m'))
+for row in data[::-1]:
+    print('\033[34m'+''.join(row[::-1]).replace('o', '\033[31mo\033[34m'))
