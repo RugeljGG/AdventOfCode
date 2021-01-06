@@ -16,7 +16,7 @@ url = 'https://adventofcode.com/{year}/leaderboard/private/view/118799.json'
 def _timezone(series):
     s = pd.to_datetime(series, unit='s')
     s = s.dt.tz_localize('UTC').dt.tz_convert('CET')
-    s = s.dt.strftime('%#d.%m. %H:%M:%S').fillna('NaT')
+    s = s.dt.strftime('%d.%m. %H:%M:%S').fillna('NaT')
     return s
 
 

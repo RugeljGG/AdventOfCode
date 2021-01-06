@@ -1,3 +1,6 @@
+<!DOCTYPE html>
+<html>
+<head>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css">
 <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.3.1.js"></script>
@@ -5,6 +8,15 @@
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.colVis.min.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/fixedcolumns/3.2.6/js/dataTables.fixedColumns.min.js"></script>
+
+<style>
+	body {
+	  font-family: sans-serif;
+	  font-size: 1.0em;  
+	}
+</style>
+</head>
+<body>
 <div id="header", style="width:100%">
     <div id="refresh", style="width:50%; float: left;">
         Last refresh: {{ts}}
@@ -118,3 +130,5 @@ $(document).ready( function () {
 } );
 
 </script>
+</body>
+</html>
