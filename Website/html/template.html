@@ -107,11 +107,13 @@ $(document).ready( function () {
 						if (a1.length>1){
 							var a2 = a1[1].split(':')
 							var hour = Number(a2[a2.length-3]);
-							var day = a1[0].split('.')[0]
+							var day = Number(a1[0].split('.')[0]);
 							var month = a1[0].split('.')[1]
 							//console.log(hour);
 							var dow = 0;
-							if (year == 2020) {
+							if (year == 2021) {
+								dow = (day+1) % 7}
+							else if (year == 2020) {
 								dow = day % 7}
 							else if (year == 2019) {
 								dow = (day+5) % 7}
