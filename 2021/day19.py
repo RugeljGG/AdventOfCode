@@ -63,19 +63,24 @@ for row in data.strip().split('\n'):
             scanners[-1][r].append(rot)
             
 
-correct = scanners[0][0]
+correct = set(scanners[0][0])
 # for i in range(len(scanners)-1):
 #     s1 = scanners[i][0]
 # for j in range(1, len(scanners)):
-to_check = scanners[1:]
+to_check = [(i, s) for i, s in enumerate(scanners[1:])]
 i_s = 0
 moves = []
+checked = defaultdict(set)
 while to_check:
     i_s+=1
-    scanner = to_check.pop(0)
+    i, scanner = to_check.pop(0)
     corr_rot = None
     corr_m = None
-    for p1 in correct[::-1]:
+    for p1 in correct:
+        if p1 in checked[i]:
+            continue
+        else:
+            checked[i].add(p1)
         x1, y1, z1 = p1
         for rotation in range(24):
             s2 = scanner[rotation]
@@ -101,14 +106,14 @@ while to_check:
                         y2n = p2b[1] - my
                         z2n = p2b[2] - mz
                         if (x2n, y2n, z2n) not in correct:
-                            correct.append((x2n, y2n, z2n))
+                            correct.add((x2n, y2n, z2n))
                     break
             if corr_rot:
                 break
         if corr_rot:
             break
     if corr_rot is None:
-        to_check.append(scanner)
+        to_check.append((i, scanner))
                 
 best = 0            
 moves.append((0,0,0))
