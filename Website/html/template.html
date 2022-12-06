@@ -110,7 +110,9 @@ $(document).ready( function () {
 							var day = Number(a1[0].split('.')[0]);
 							var month = a1[0].split('.')[1]
 							//console.log(hour);
-							var dow = 0;
+							var dow = 6;
+							if (year == 2022) {
+								dow = (day+2) % 7}
 							if (year == 2021) {
 								dow = (day+1) % 7}
 							else if (year == 2020) {
