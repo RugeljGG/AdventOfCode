@@ -17,7 +17,7 @@ import results
 app = flask.Flask('__name__', template_folder='html')
 
 LIMIT = 60 # don't refresh more often than every 60 seconds
-YEARS = ('2017', '2018', '2019', '2020', '2021')
+YEARS = ('2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022')
 
 @app.route('/get_results/<year>')
 def result_page(year, *args, duration=False, **kwargs):
@@ -61,10 +61,10 @@ def duration(year, *args, **kwargs):
 
 @app.route('/')
 @app.route('/<year>')
-def index(year='2021', duration=False):
+def index(year='2022', duration=False):
     year=str(year)
     if year not in YEARS:
-        year = '2020'
+        year = '2022'
     links = '\r\n'.join(['<a href="/{y}">{y}</a>'.format(y=y) for y in YEARS if y!= year])
     name = 'AoC {}'.format(year)
     ts = cache[duration][year]['ts']
@@ -79,7 +79,7 @@ def index(year='2021', duration=False):
 
 @app.route('/duration')
 @app.route('/duration/<year>')
-def index_duration(year='2021'):
+def index_duration(year='2022'):
     return index(year, duration=True)
 
 
