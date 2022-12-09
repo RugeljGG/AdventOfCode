@@ -40,8 +40,7 @@ def task1():
             elif max(trs[:row,col]) < tr or max(trs[row+1:,col]) < tr:
                 num += 1
 
-
-    num = 0
+    return num
 
 
 def search(line, h):
@@ -61,3 +60,6 @@ for row in range(n):
         score = search(trs[row, col+1:], tr) * search(trs[row, :col][::-1], tr) *  search(trs[:row, col][::-1], tr) * search(trs[row+1:, col], tr)
         if score > best:
             best = score
+
+print("Task 1 answer:", task1())
+print("Task 2 answer:", best)
