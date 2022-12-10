@@ -40,35 +40,6 @@ def show(knots, n=50):
     for i in range(len(canvas)):
         print(''.join(canvas[i]))
 
-def task1():
-    t = [0,0]
-    h = [0,0]
-
-    vis = set()
-
-
-
-
-    for row in data.strip().split('\n'):
-        d, n = row.split(' ')
-        for i in range(int(n)):
-            h = move(h, d)
-            if h[0] - t[0] > 1:
-                t[0] += 1
-                t[1] = h[1]
-            if h[0] - t[0] < -1:
-                t[0] -= 1
-                t[1] = h[1]
-            if h[1] - t[1] > 1:
-                t[1] += 1
-                t[0] = h[0]
-            if h[1] - t[1] < -1:
-                t[1] -= 1
-                t[0] = h[0]
-
-            vis.add(tuple(t))
-
-
 def solve(num=9):
     knots = [[0,0] for i in range(1+num)]
     vis = set()
