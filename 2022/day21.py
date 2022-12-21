@@ -53,7 +53,6 @@ original = values.copy()
 order = []
 
 while True:
-    # print(len(values), len(to_calc), flush=True)
     for i in range(len(to_calc)):
         i
         name, code = to_calc[i]
@@ -76,7 +75,6 @@ while True:
 
 print("Task 1 answer:", int(values['root']))
 
-
 def calc(i):
     current_values = original.copy()
     current_values['humn'] = i
@@ -88,7 +86,6 @@ def calc(i):
     v1, op, v2 = order[-1][1]
 
     return current_values[v1], current_values[v2]
-
 
 i = 1000000
 
