@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+o# -*- coding: utf-8 -*-
 """
 Created on Fri Jan 1 16:56:12 2023
 
@@ -49,7 +49,7 @@ def convert(snafu):
     for e, c in enumerate(snafu[::-1]):
         if c in mapping:
             i = mapping[c]
-        else:
+n        else:
             i = int(c)
         num += i * (5**e)
 
