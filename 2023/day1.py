@@ -35,9 +35,9 @@ mapping = {'one':1,
 
 l2 = []
 for i in data:
-    nums = re.findall('\d'+'|'+'|'.join(mapping.keys()), i)
+    nums = re.findall(r'(?=(\d'+'|'+'|'.join(mapping.keys())+'))', i)
     if len(nums[0]) == 1:
-        first = int(nums[0])
+        first = int(nums[0][0])
     else:
         first = mapping[nums[0]]
 
