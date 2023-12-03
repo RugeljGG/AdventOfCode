@@ -5,13 +5,6 @@ Created on Sun Dec  3 13:58:39 2023
 @author: gape
 """
 
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Dec  1 05:57:17 2022
-
-@author: gape
-"""
-
 from collections import Counter, defaultdict
 import re
 import pandas as pd
